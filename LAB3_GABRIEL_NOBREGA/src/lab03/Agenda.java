@@ -69,7 +69,7 @@ public class Agenda {
 
 	private Contato procuraContato(String nome, String sobrenome) {
 		Contato procurado = new Contato(nome, sobrenome, 0);
-		for (Contato contato : contatos) {
+		for (Contato contato : this.contatos) {
 			if (procurado.equals(contato)) {
 				return contato;
 			}
@@ -89,6 +89,99 @@ public class Agenda {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Metodo que consulta todos os contatos com o nome do parametro
+	 * 
+	 * @param nome
+	 * @return string com todos os to string de contatos com o nome.
+	 */
+	public String consultaPorNome(String nome) {
+		String saida = "";
+		for (Contato contato : this.contatos) {
+			if (contato != null) {
+				if (contato.getNome().equals(nome)) {
+
+					saida += contato + "\n";
+				}
+			}
+		}
+
+		return saida;
+	}
+
+	/**
+	 * Procura por um contato igual ao descrito
+	 * 
+	 * @param nome
+	 * @param sobrenome
+	 * @return String que representa o contato.
+	 */
+	public String consultaPorContato(String nome, String sobrenome) {
+		Contato parametro = new Contato(nome, sobrenome, 1);
+		for (Contato contato : this.contatos) {
+			if (contato != null) {
+				if (contato.equals(parametro)) {
+					return contato.toString();
+				}
+			}
+		}
+		return "CONTATO NAO ENCONTRADO";
+	}
+
+	/**
+	 * Retorna string de todos os contatos com esse nivel.
+	 * 
+	 * @param nivel
+	 * @return string com todos os contatos desse nivel.
+	 */
+	public String consultaPorAmizade(int nivel) {
+		String saida = "";
+		for (Contato contato : this.contatos) {
+			if (contato != null) {
+				if (contato.getNivel() == nivel) {
+					saida += contato + "\n";
+				}
+			}
+		}
+		return saida;
+	}
+
+	/**
+	 * Conta contatos com esse nivel de amizade
+	 * 
+	 * @param nivel
+	 * @return inteiros que representa os contatos com esse nivel.
+	 */
+	public int numeroDeContatosAmizade(int nivel) {
+		int cont = 0;
+		for (Contato contato : this.contatos) {
+			if (contato != null) {
+				if (contato.getNivel() == nivel) {
+					cont += 1;
+				}
+			}
+		}
+		return cont;
+	}
+
+	/**
+	 * metodo que calcula a media das amizades do contato.
+	 * 
+	 * @return
+	 */
+	public double mediaAmizade() {
+		double soma = 0;
+		int n = 0;
+		for (Contato contato : this.contatos) {
+			if (contato != null) {
+				soma += contato.getNivel();
+				n += 1;
+			}
+		}
+
+		return (soma / n);
 	}
 
 	/**

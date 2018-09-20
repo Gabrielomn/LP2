@@ -102,6 +102,14 @@ public class Contato {
 	public String exibir() {
 		return this.nome + " " + this.sobrenome + " - " + this.telefones[0]; 
 	}
+	
+	/**
+	 * retorna o nivel do contato
+	 * @return nivel do contato
+	 */
+	public int getNivel() {
+		return this.nivel;
+	}
 
 	@Override
 	public int hashCode() {

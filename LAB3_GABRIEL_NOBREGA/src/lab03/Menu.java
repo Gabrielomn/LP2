@@ -40,6 +40,43 @@ public class Menu {
 			
 		}
 		
+		else if (comando.equals("U")) {
+			System.out.println("Como deseja fazer a consulta?");
+			System.out.println("Por (N)ome, por n(I)vel de amizade, por nome (E) sobrenome");
+			System.out.println("Ou deseja a (M)edia ou o n(U)mero com certa amizade ");
+			String opcao = sc.nextLine();
+			if (opcao.equals("N")) {
+				System.out.print("Nome a ser pesquisado:");
+				String nome = sc.nextLine();
+				System.out.println(agenda.consultaPorNome(nome));
+			}
+			else if(opcao.equals("I")) {
+				System.out.print("Nivel:");
+				int nivel = sc.nextInt();
+				System.out.println(agenda.consultaPorAmizade(nivel));
+			}
+			else if(opcao.equals("E")) {
+				System.out.print("Nome:");
+				String nome = sc.nextLine();
+				System.out.print("Sobrenome:");
+				String sobrenome = sc.nextLine();
+				System.out.println(agenda.consultaPorContato(nome, sobrenome));
+			}
+			else if (opcao.equals("M")) {
+				System.out.println(agenda.mediaAmizade());
+			}
+			
+			else if (opcao.equals("U")) {
+				System.out.print("Nivel Desejado:");
+				int nivel = sc.nextInt();
+				System.out.println(agenda.numeroDeContatosAmizade(nivel));
+			}
+			else {
+				System.out.println("OPCAO INVALIDA!");
+			}
+
+		}
+		
 		else if (comando.equals("L")){
 			System.out.println(this.agenda.listarContatos());
 		}
@@ -71,7 +108,7 @@ public class Menu {
 	}
 	
 	public String exibirMenu() {
-		return "(C)adastrar Contato\n(L)istar Contatos\n(E)xibir Contato\n(N)ovo Telefone\n(S)air\nOpção>";
+		return "(C)adastrar Contato\n(L)istar Contatos\n(E)xibir Contato\n(N)ovo Telefone\nCons(U)lta\n(S)air\nOpção>";
 	}
 	
 }

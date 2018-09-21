@@ -41,7 +41,7 @@ public class Contato {
 			throw new IllegalArgumentException("String vazia passada como paraametro");
 		}
 		
-		if (nivel < 0 || nivel > 5) {
+		if (nivel < 1 || nivel > 5) {
 			throw new IllegalArgumentException("Numero pra nivel deve ser entre 1 e 5");
 		}
 		
@@ -86,9 +86,9 @@ public class Contato {
 	 * @param ddi
 	 * @param numero
 	 */
-	public void cadastraTelefone(String tipo, int dd, int ddi, int numero) {
+	public void cadastraTelefone(String tipo, int ddi, int ddd, int numero) {
 		if (this.numTel < 3) {
-			telefones[this.numTel] = new Telefone(tipo, dd, ddi, numero);
+			telefones[this.numTel] = new Telefone(tipo, ddi, ddd, numero);
 			this.numTel += 1;
 		}
 	}

@@ -61,14 +61,14 @@ public class Agenda {
 	public String cadastraTel(String nome, String sobrenome, String tipo, int ddi, int ddd, int numero) {
 		Contato procurado = procuraContato(nome, sobrenome);
 		if (procurado != null) {
-			procurado.cadastraTelefone(tipo, ddd, ddi, numero);
+			procurado.cadastraTelefone(tipo, ddi, ddd, numero);
 			return "TELEFONE CADASTRADO COM SUCESSO!";
 		}
 		return "CONTATO NAO EXISTENTE!";
 	}
 
 	private Contato procuraContato(String nome, String sobrenome) {
-		Contato procurado = new Contato(nome, sobrenome, 0);
+		Contato procurado = new Contato(nome, sobrenome, 1);
 		for (Contato contato : this.contatos) {
 			if (procurado.equals(contato)) {
 				return contato;
@@ -180,8 +180,10 @@ public class Agenda {
 				n += 1;
 			}
 		}
-
-		return (soma / n);
+		if (n != 0) {
+			return (soma / n);
+		} else
+			return 0;
 	}
 
 	/**

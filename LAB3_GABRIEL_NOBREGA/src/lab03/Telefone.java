@@ -7,7 +7,7 @@ public class Telefone {
 	private int ddi;
 	private int numero;
 	
-	public Telefone(String tipo, int ddd, int ddi, int numero) {
+	public Telefone(String tipo, int ddi, int ddd, int numero) {
 		this.tipo = tipo;
 		this.ddd = ddd;
 		this.ddi = ddi;

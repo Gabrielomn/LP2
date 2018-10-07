@@ -23,20 +23,52 @@ public class Sistema {
 		this.grupos.put(nome, new GrupoDeEstudo(nome));
 	}
 
-	public void cadastraNoGrupo(String nomeDoGrupo, String matricula) {
-		this.grupos.get(nomeDoGrupo).cadastraAluno(this.alunos.get(matricula));
+	public String cadastraNoGrupo(String nomeDoGrupo, String matricula) {
+		if (this.grupos.containsKey(nomeDoGrupo)) {
+			if (this.alunos.containsKey(matricula))
+
+			{
+				this.grupos.get(nomeDoGrupo).cadastraAluno(this.alunos.get(matricula));
+				return "ALUNO ALOCADO!";
+			} else {
+				return "ALUNO NAO CADASTRADO.";
+			}
+
+		}
+
+		else {
+
+			return "GRUPO NAO CADASTRADO.";
+			// Precisa retornar algo, necessária confirmação se foi cadastrado o aluno ou
+			// não.
+		}
 	}
 
 	public String consultaAluno(String matricula) {
-		return this.alunos.get(matricula).toString();
+
+		if (this.alunos.containsKey(matricula)) {
+
+			return this.alunos.get(matricula).toString();
+		}
+
+		else {
+			return "Aluno não cadastrado.";
+		}
 	}
 
 	public String imprimeGrupo(String nomeDoGrupo) {
 		return this.grupos.get(nomeDoGrupo).imprimeGrupo();
 	}
 
-	public void cadastraResposta(String matricula) {
-		this.quadroDeRespostas.add(this.alunos.get(matricula));
+	public String cadastraResposta(String matricula) {
+
+		if (this.alunos.containsKey(matricula)) {
+			this.quadroDeRespostas.add(this.alunos.get(matricula));
+			return "ALUNO REGISTRADO!";
+		}
+		else {
+			return "ALUNO NAO CADASTRADO";
+		}
 	}
 
 	public String imprimirAlunosQuestoes() {
@@ -46,7 +78,7 @@ public class Sistema {
 		for (Aluno aluno : this.quadroDeRespostas) {
 			saida += cont + ". " + aluno.toString() + System.lineSeparator();
 		}
-		
+
 		return saida;
 	}
 }

@@ -8,6 +8,7 @@ public class GrupoDeEstudo {
 	private HashSet <Aluno> alunosNoGrupo;
 	
 	public GrupoDeEstudo(String tema) {
+		this.alunosNoGrupo = new HashSet<>();
 		this.tema = tema;
 	}
 	
@@ -18,12 +19,11 @@ public class GrupoDeEstudo {
 	public String imprimeGrupo() {
 		
 		String saida = "";
-		int cont = 1;
 		for (Aluno a: this.alunosNoGrupo) {
-			saida += cont + ". " + a + System.lineSeparator();
+			saida += "* "+ a + System.lineSeparator();
 		}
-		
-		return saida;
+		String ninguemCadastrado = "Nenhum aluno cadastrado em " + this.tema;
+		return (saida.length() != 0) ? saida : ninguemCadastrado;
 	}
 
 }

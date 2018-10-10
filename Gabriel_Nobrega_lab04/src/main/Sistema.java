@@ -15,12 +15,23 @@ public class Sistema {
 		this.quadroDeRespostas = new ArrayList<>();
 	}
 
-	public void cadastraAluno(String nome, String matricula, String curso) {
-		this.alunos.put(matricula, new Aluno(nome, matricula, curso));
+	public String cadastraAluno(String nome, String matricula, String curso) {
+		if (this.alunos.containsKey(matricula)) {
+
+			return "CADASTRO REALIZADO!";
+		} else {
+			this.alunos.put(matricula, new Aluno(nome, matricula, curso));
+			return "CADASTRO REALIZADO!";
+		}
 	}
 
-	public void cadastraGrupo(String nome) {
-		this.grupos.put(nome, new GrupoDeEstudo(nome));
+	public String cadastraGrupo(String nome) {
+		if (this.grupos.containsKey(nome)) {
+			return "GRUPO JA CADASTRADO";
+		} else {
+			this.grupos.put(nome, new GrupoDeEstudo(nome));
+			return "CADASTRO REALIZADO!";
+		}
 	}
 
 	public String cadastraNoGrupo(String nomeDoGrupo, String matricula) {
@@ -57,7 +68,11 @@ public class Sistema {
 	}
 
 	public String imprimeGrupo(String nomeDoGrupo) {
-		return this.grupos.get(nomeDoGrupo).imprimeGrupo();
+		if (this.grupos.containsKey(nomeDoGrupo)) {
+		return this.grupos.get(nomeDoGrupo).imprimeGrupo();}
+		else {
+			return "Grupo nao cadastrado";
+		}
 	}
 
 	public String cadastraResposta(String matricula) {
@@ -65,8 +80,7 @@ public class Sistema {
 		if (this.alunos.containsKey(matricula)) {
 			this.quadroDeRespostas.add(this.alunos.get(matricula));
 			return "ALUNO REGISTRADO!";
-		}
-		else {
+		} else {
 			return "ALUNO NAO CADASTRADO";
 		}
 	}

@@ -1,17 +1,37 @@
 package main;
 
+/**
+ * classe que representa a entidade Aluno
+ * @author gabriel
+ *
+ */
 public class Aluno {
 	
+	/**
+	 * representa o nome do aluno
+	 */
 	private String nome;
+	/**
+	 * representa a matricula do aluno
+	 */
 	private String matricula;
+	/**
+	 * representa o curso do aluno
+	 */
 	private String curso;
 	
+	/**
+	 * construtor de aluno, instancia com os metodos que recebe como parametro
+	 * @param nome
+	 * @param matricula
+	 * @param curso
+	 */
 	public Aluno(String nome, String matricula, String curso) {
 		this.nome = nome;
 		this.matricula = matricula;
 		this.curso = curso;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -36,7 +56,10 @@ public class Aluno {
 			return false;
 		return true;
 	}
-
+	
+	/**
+	 * representação em String de aluno.
+	 */
 	@Override
 	public String toString() {
 		return this.matricula + " - " + this.nome + " - " + this.curso ;

@@ -2,10 +2,13 @@ package main;
 
 import java.util.Scanner;
 
+import exceptions.AlunoNaoExistenteException;
+import exceptions.GrupoNaoExistenteException;
+
 public class Menu {
-	
+
 	private Sistema sistema;
-	
+
 	public Menu() {
 		this.sistema = new Sistema();
 	}
@@ -30,24 +33,45 @@ public class Menu {
 				String nome = sc.nextLine();
 				System.out.print("Curso: ");
 				String curso = sc.nextLine();
-				System.out.println(this.sistema.cadastraAluno(nome, matricula, curso));
-				
+				try {
+
+					if (this.sistema.cadastraAluno(nome, matricula, curso)) {
+						System.out.println("Aluno cadastrado com sucesso");
+					} else {
+						System.out.println("Matricula ja cadastrada");
+					}
+				} catch (IllegalArgumentException iae) {
+					System.out.println(iae.getMessage());
+				}
 			}
-			
+
 			else if (opcao.equals("E")) {
 				System.out.print("Matricula: ");
 				String matricula = sc.nextLine();
-				System.out.println(this.sistema.consultaAluno(matricula));
-				
+				try {
+					System.out.println(this.sistema.consultaAluno(matricula));
+
+				} catch (AlunoNaoExistenteException anee) {
+					System.out.println(anee.getMessage());
+				}
 			}
-			
+
 			else if (opcao.equals("N")) {
 				System.out.print("Tema: ");
 				String Tema = sc.nextLine();
-				System.out.println(this.sistema.cadastraGrupo(Tema));
-				
+				try {
+					if(this.sistema.cadastraGrupo(Tema)) {
+						System.out.println("Grupo cadastrado com sucesso");
+					}
+					else {
+						System.out.println("Grupo ja existente");
+					}
+				} catch (IllegalArgumentException iae) {
+					System.out.println(iae.getMessage());
+				}
+
 			}
-			
+
 			else if (opcao.equals("A")) {
 				System.out.println("(A)locar Aluno ou (I)mprimir Grupo?");
 				opcao = sc.nextLine();
@@ -56,26 +80,45 @@ public class Menu {
 					String matricula = sc.nextLine();
 					System.out.print("Grupo: ");
 					String tema = sc.nextLine();
-					System.out.println(this.sistema.cadastraNoGrupo(tema, matricula));
+					try {
+						this.sistema.cadastraNoGrupo(tema, matricula);
+						System.out.println("Aluno cadastrado no grupo com sucesso");
+					} catch (AlunoNaoExistenteException anee) {
+						System.out.println(anee.getMessage());
+					} catch (GrupoNaoExistenteException gnee) {
+						System.out.println(gnee.getMessage());
+					}
+
 				}
-				
+
 				else if (opcao.equals("I")) {
 					System.out.print("Tema do Grupo:");
 					String tema = sc.nextLine();
-					System.out.println(this.sistema.imprimeGrupo(tema));
+					try {
+					System.out.println(this.sistema.imprimeGrupo(tema));}
+					catch (GrupoNaoExistenteException gnee) {
+						System.out.println(gnee.getMessage());
+					}
 				}
 			}
-				
+
 			else if (opcao.equals("R")) {
 				System.out.print("Matricula: ");
 				String matricula = sc.nextLine();
-				System.out.println(this.sistema.cadastraResposta(matricula));
+				try {
+					this.sistema.cadastraResposta(matricula);
+					System.out.println("Resposta cadastrada com sucesso");
+				} catch (AlunoNaoExistenteException anee) {
+					System.out.println(anee.getMessage());
+				}
 			}
-			
+
 			else if (opcao.equals("I")) {
 				System.out.print(this.sistema.imprimirAlunosQuestoes());
+
+			} else if (opcao.equals("O")) {
+				break;
 			}
-			
 		}
 
 	}

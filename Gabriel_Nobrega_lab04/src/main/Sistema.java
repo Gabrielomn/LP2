@@ -41,7 +41,7 @@ public class Sistema {
 	 * @param nome
 	 * @param matricula
 	 * @param curso
-	 * @return String que confirma se aluno foi cadastrado ou não.
+	 * @return boolean que confirma se aluno foi cadastrado ou não.
 	 */
 	public boolean cadastraAluno(String nome, String matricula, String curso) {
 		if (nome.equals("") || matricula.equals("") || curso.equals("")) {
@@ -61,18 +61,18 @@ public class Sistema {
 	 * metodo que cadastra um grupo, lança exceção caso o tema passsado seja uma
 	 * string vazia
 	 * @param nome
-	 * @return String que diz se o grupo foi ou não cadastrado
+	 * @return boolean que diz se o grupo foi ou não cadastrado
 	 */
-	public String cadastraGrupo(String nome) {
+	public boolean cadastraGrupo(String nome) {
 		if (nome.equals("")) {
 			throw new IllegalArgumentException("Grupo nao pode ter string vazia como nome");
 		}
 
 		if (this.grupos.containsKey(nome)) {
-			return "GRUPO JA CADASTRADO";
+			return false;
 		} else {
 			this.grupos.put(nome, new GrupoDeEstudo(nome));
-			return "CADASTRO REALIZADO!";
+			return true;
 		}
 	}
 
@@ -90,18 +90,24 @@ public class Sistema {
 			{
 				this.grupos.get(nomeDoGrupo).cadastraAluno(this.alunos.get(matricula));
 			} else {
-				throw new AlunoNaoExistenteException("ALUNO NAO CADASTRADO");
+				throw new AlunoNaoExistenteException();
 			}
 
 		}
 
 		else {
 
-			throw new GrupoNaoExistenteException("GRUPO NAO CADASTRADO");
+			throw new GrupoNaoExistenteException();
 
 		}
 	}
-
+	
+	/**
+	 * metodo que retorna um toString do aluno com a matricula correspondente.
+	 * @param matricula
+	 * @return toString do aluno
+	 * @throws AlunoNaoExistenteException caso não exista esse aluno
+	 */
 	public String consultaAluno(String matricula) throws AlunoNaoExistenteException {
 
 		if (this.alunos.containsKey(matricula)) {
@@ -110,28 +116,42 @@ public class Sistema {
 		}
 
 		else {
-			throw new AlunoNaoExistenteException("Aluno nao cadastrado");
+			throw new AlunoNaoExistenteException();
 		}
 	}
-
-	public String imprimeGrupo(String nomeDoGrupo) {
+	
+	/**
+	 * Imprime os membros do grupo de nome igual ao parametro
+	 * @param nomeDoGrupo
+	 * @return String que representa os membros desse grupo
+	 * @throws GrupoNaoExistenteException caso não exista o grupo
+	 */
+	public String imprimeGrupo(String nomeDoGrupo) throws GrupoNaoExistenteException {
 		if (this.grupos.containsKey(nomeDoGrupo)) {
 			return this.grupos.get(nomeDoGrupo).imprimeGrupo();
 		} else {
-			return "Grupo nao cadastrado";
+			throw new GrupoNaoExistenteException();
 		}
 	}
-
-	public String cadastraResposta(String matricula) {
+	
+	/**
+	 * metodo que cadastra a resposta do aluno.
+	 * @param matricula
+	 * @throws AlunoNaoExistenteException
+	 */
+	public void cadastraResposta(String matricula) throws AlunoNaoExistenteException {
 
 		if (this.alunos.containsKey(matricula)) {
 			this.quadroDeRespostas.add(this.alunos.get(matricula));
-			return "ALUNO REGISTRADO!";
 		} else {
-			return "ALUNO NAO CADASTRADO";
+			throw new AlunoNaoExistenteException();
 		}
 	}
 
+	/**
+	 * Imprime os alunos que responderam as questões
+	 * @return
+	 */
 	public String imprimirAlunosQuestoes() {
 		String saida = "Alunos:" + System.lineSeparator();
 		int cont = 1;
